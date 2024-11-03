@@ -3,7 +3,7 @@ program that was based off of a 3blue1brown video that spoke about fourier trans
 --- www.youtube.com/watch?v=r6sGWTCMz2k&ab_channel=3Blue1Brown
 
 
-\\ however
+...however
 I decided to make one that takes in some random numbers, and makes some randomly symmetrical drawings which I thought were cool
 here is a sample 
 

@@ -1,11 +1,11 @@
 #include "ini.hpp"
-#include "texture.hpp"
+#include "Object.hpp"
 #include "app.hpp"
 #include <stdio.h>
 
 SDL_Window *gWindow=nullptr;
 SDL_Renderer *gRenderer=nullptr;
-texture arrow;
+Object arrow;
 
 const int WIDTH = 1200;
 const int HEIGHT = 800;

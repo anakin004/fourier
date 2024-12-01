@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SDL.h>
-#include "texture.hpp"
+#include "Object.hpp"
 #include "ini.hpp"
 
 class app {
@@ -22,4 +22,4 @@ class app {
 extern SDL_Renderer *gRenderer;
 extern const int WIDTH;
 extern const int HEIGHT;
-extern texture arrow;
+extern Object arrow;

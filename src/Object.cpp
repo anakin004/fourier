@@ -22,7 +22,7 @@ void Object::free()
     //Free Object if it exists
     if( mObject != nullptr )
     {
-        SDL_DestroyObject( mObject );
+        SDL_DestroyTexture( mObject );
         mObject = nullptr;
 
     }

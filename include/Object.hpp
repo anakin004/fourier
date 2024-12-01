@@ -7,11 +7,11 @@
 #include <string>
 #include <vector>
 
-class texture {
+class Object {
     public:
 
-        texture();
-        ~texture();
+        Object();
+        ~Object();
         bool loadFromFile(std::string path);
         void free();
         void add( std::vector<double>&vals, const int N, bool isFirst  );
@@ -30,7 +30,7 @@ class texture {
 
 
         std::vector< std::tuple<double,double,double,double,double> > fourierY;
-        SDL_Texture* mTexture;
+        SDL_Texture* mObject;
         int mWidth;
         int mHeight;
 };

@@ -212,11 +212,11 @@ void Object::render(){
 
 bool Object::loadFromFile( std::string path )
 {
-    //Get rid of preexisting Object
+    //Get rid of preexisting texture
     free();
 
-    //The final Object
-    SDL_Object* newObject = nullptr;
+    //The final texture
+    SDL_Texture* newTexture = nullptr;
 
     //Load image at specified path
     SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
@@ -241,8 +241,8 @@ bool Object::loadFromFile( std::string path )
             Uint32 pixelColor = SDL_MapRGBA(optimized->format, 0, 0, 0, 255);
             SDL_SetColorKey( optimized, SDL_TRUE, pixelColor);
 
-            //Create Object from surface pixels
-            newObject = SDL_CreateObjectFromSurface( gRenderer, optimized );
+            //Create texture from surface pixels
+            newObject = SDL_CreateTextureFromSurface( gRenderer, optimized );
 
             
 
@@ -266,7 +266,7 @@ bool Object::loadFromFile( std::string path )
     }
 
     //Return success
-    mObject = newObject;
+    mObject = newTexture;
     return mObject != nullptr;
 }
 

@@ -1,38 +1,38 @@
-#include "texture.hpp"
+#include "Object.hpp"
 #include "math.hpp"
 #include <tuple>
 
+// similar to sliders for speed and size of arrows
 #define c 10
 #define c2 1
 
 
-
-texture::texture() : mPositions(), fourierY() {
-    mTexture = nullptr;
+Object::Object() : mPositions(), fourierY() {
+    mObject = nullptr;
     mWidth = 0;
     mHeight = 0;
 }
 
-texture::~texture() {
+Object::~Object() {
     free();
 }
 
-void texture::free()
+void Object::free()
 {
-    //Free texture if it exists
-    if( mTexture != nullptr )
+    //Free Object if it exists
+    if( mObject != nullptr )
     {
-        SDL_DestroyTexture( mTexture );
-        mTexture = nullptr;
+        SDL_DestroyObject( mObject );
+        mObject = nullptr;
 
     }
 }
 
-int texture::getWidth() {
+int Object::getWidth() {
     return mWidth;
 }
 
-int texture::getHeight() {
+int Object::getHeight() {
     return mHeight;
 }
 
@@ -45,7 +45,7 @@ auto computeDimensions(float radius, float mHeight, float mWidth) {
     return std::make_tuple(width, height, centerX);
 }
 
-void texture::add( std::vector<double>&vals, const int N, bool isFirst  ){
+void Object::add( std::vector<double>&vals, const int N, bool isFirst  ){
     std::vector< std::tuple<double,double,double,double,double> > fourierY = dft(vals, N);
     static float time = 0;
     float x = 0;
@@ -88,7 +88,7 @@ void texture::add( std::vector<double>&vals, const int N, bool isFirst  ){
     }
 }
 
-std::pair< float , float > texture::getXY( int idx, bool isFirst ){
+std::pair< float , float > Object::getXY( int idx, bool isFirst ){
     if(isFirst){
         double rad = (std::get<2>(mPositions.first[idx])+ 90.f)*M_PI/180.f;
         float radius = std::get<0>(mPositions.first[idx]).h;
@@ -108,7 +108,7 @@ std::pair< float , float > texture::getXY( int idx, bool isFirst ){
 
 }
 
-void texture::updatePositions(){
+void Object::updatePositions(){
     //assumes minimum of 1 element in mPositions
     std::get<2>(mPositions.first[0]) += std::get<3>(mPositions.first[0]);
     std::get<2>(mPositions.second[0]) += std::get<3>(mPositions.second[0]);
@@ -149,7 +149,7 @@ void texture::updatePositions(){
 }
 
 
-void texture::render(){
+void Object::render(){
     
     
     static std::vector<float> draw;
@@ -165,7 +165,7 @@ void texture::render(){
         
 
         SDL_SetRenderDrawColor( gRenderer, 255, 0, 0, 0);
-        SDL_RenderCopyExF(gRenderer, mTexture, NULL, &thisArrowPos, angle , &thisCenter , SDL_FLIP_NONE);
+        SDL_RenderCopyExF(gRenderer, mObject, NULL, &thisArrowPos, angle , &thisCenter , SDL_FLIP_NONE);
 
 
         if(iter==mPositions.first.size()-1){
@@ -188,7 +188,7 @@ void texture::render(){
         
 
         SDL_SetRenderDrawColor( gRenderer, 255, 0, 0, 0);
-        SDL_RenderCopyExF(gRenderer, mTexture, NULL, &thisArrowPos, angle , &thisCenter , SDL_FLIP_NONE);
+        SDL_RenderCopyExF(gRenderer, mObject, NULL, &thisArrowPos, angle , &thisCenter , SDL_FLIP_NONE);
 
 
         if(iter==mPositions.second.size()-1){
@@ -210,13 +210,13 @@ void texture::render(){
 
 
 
-bool texture::loadFromFile( std::string path )
+bool Object::loadFromFile( std::string path )
 {
-    //Get rid of preexisting texture
+    //Get rid of preexisting Object
     free();
 
-    //The final texture
-    SDL_Texture* newTexture = nullptr;
+    //The final Object
+    SDL_Object* newObject = nullptr;
 
     //Load image at specified path
     SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
@@ -241,14 +241,14 @@ bool texture::loadFromFile( std::string path )
             Uint32 pixelColor = SDL_MapRGBA(optimized->format, 0, 0, 0, 255);
             SDL_SetColorKey( optimized, SDL_TRUE, pixelColor);
 
-            //Create texture from surface pixels
-            newTexture = SDL_CreateTextureFromSurface( gRenderer, optimized );
+            //Create Object from surface pixels
+            newObject = SDL_CreateObjectFromSurface( gRenderer, optimized );
 
             
 
-            if( newTexture == nullptr )
+            if( newObject == nullptr )
             {
-                printf( "Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
+                printf( "Unable to create Object from %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
             }
 
             else
@@ -266,8 +266,8 @@ bool texture::loadFromFile( std::string path )
     }
 
     //Return success
-    mTexture = newTexture;
-    return mTexture != nullptr;
+    mObject = newObject;
+    return mObject != nullptr;
 }
 
 

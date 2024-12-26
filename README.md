@@ -1,6 +1,6 @@
 # Fourier
 
-This is a cool little suedo random - ish program I wanted to make, inspired by 3blue1brown
+This is a cool little pseudorandom - ish program I wanted to make, inspired by 3blue1brown
 --- www.youtube.com/watch?v=r6sGWTCMz2k&ab_channel=3Blue1Brown\
 
 ## Features
